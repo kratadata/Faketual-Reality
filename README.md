@@ -31,27 +31,24 @@ python setup.py install
 All paths are hard-coded inside of the scripts, make sure you change them before running.
 
 ### Crop the videos
-The script in scripts/preprocess_driving_video.py is responsible to detect and crop the driving videos in a preprocessing step (if needed). <br>
-Just run it (change the paths accordingly) like:
+The script in scripts/preprocess_driving_video.py is responsible to detect and crop the driving videos in a preprocessing step (if needed). Just run it (change the paths accordingly)
 ```
 python scripts/preprocess_driving_video.py
 ```
 
 ### Crop the images
-The script in scripts/preprocess_images.py is responsible to crop the images to squares in a preprocessing step (if needed). <br>
-Just run it (change the paths accordingly) like
+The script in scripts/preprocess_images.py is responsible to crop the images to squares in a preprocessing step (if needed). Just run it (change the paths accordingly)
 ```
 python scripts/preprocess_images.py
 ```
 
 ### Test the model 
 Before testing the model, you need to download the weights: <br> https://drive.google.com/file/d/1wjUDZP7rXRAF6hQ4TisZ1YvCRwn-ur5W/view?usp=sharing <br>
-After downloading put the in the folder ```checkpoints``` of the repo. <br>
-The main code: <br>
+After downloading put the in the folder ```checkpoints``` of the repo. Just remember that the code requires that the object in the first frame of the video and in the source image have the same pose. <br>
+
 ```
 python scripts/exhibition_script.py
 ```
-Just remember that the code requires that the object in the first frame of the video and in the source image have the same pose
 
 ### Enhancement
 Added the code for enhancing the generated videos inside the script. <br>
