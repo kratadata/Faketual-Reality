@@ -1,0 +1,142 @@
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+  .container {
+    position: relative;
+    background-color: #ffffff;
+    height: 1080px;
+    width: 1920px;
+  }
+  
+  
+  .input_video {
+    position:relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .output_canvas, .drawing_canvas, .instruction_canvas {
+    position:absolute;
+    height: 1080px;
+    width: 1920px;
+    left: 0;
+    top: 0;
+  }
+
+  .drawing_canvas {
+    z-index: 10;
+  }
+
+  .instruction_canvas {
+    z-index: 20;
+  }
+  
+  
+  #progress {
+    position:absolute;
+    left:45%;
+    top:5%;
+    font-size: 20rem;
+    color: blue;
+  }
+
+  #progress > span  {
+    font-weight: bold;
+    justify-items: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20rem;
+    color: blue;
+}
+
+  .messages-panel {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    z-index: 100;
+  }
+
+  .messages-panel p {
+      font-size:100px;
+  }
+  
+.loading {
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 1;
+ 	transition: 1s opacity;
+  justify-content: center;
+  align-items: center;
+}
+
+  @keyframes spin {
+    to{
+      transform:rotate(360deg)
+    }
+  }
+
+  .spinner, .spinner::before, .spinner::after{
+    content:'';
+    display:block;
+    border:4px solid transparent;
+    border-radius:50%;
+    animation:spin infinite linear 2s;
+    position:absolute;
+    z-index:12;
+  }
+  .spinner{
+    width:200px;
+    height:200px;
+    border-top-color:rgb(0, 0, 255);
+    top:calc(50% - 100px);
+    left:calc(50% - 100px);
+  }
+  .spinner::before{
+    border-top-color:rgb(255, 255, 255);
+    animation-duration:4s;
+    top:2px;
+    bottom:2px;
+    left:2px;
+    right:2px;
+  }
+  .spinner::after{
+    border-top-color:rgb(0, 0, 255);
+    top:8px;
+    bottom:8px;
+    left:8px;
+    right:8px;
+  }
+
+  .loaded .loading {
+    opacity: 0;
+  }
+  
+  #countdown {
+	  text-align: center;
+	  justify-content: center;
+    color: white;
+    left:-5%;
+  }
+
+  .values {
+	font-size: 2rem;
+	font-family: 'Raleway', sans-serif;
+	color: white;
+  }
+
+#gif-container img{
+  position: absolute;
+  width: 50%;
+  height: auto;
+  left:25%;
+}

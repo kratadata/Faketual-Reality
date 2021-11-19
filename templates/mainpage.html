@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Faketual Reality</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='agreement.css') }}">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script> 
+
+    </head>
+
+    <script>
+      window.onload = function goBackToMainpage() {
+          setTimeout(reload, 60000);
+      }
+  
+      function reload() {
+          var a = document.createElement('a');
+          a.href = "{{ url_for('index') }}";
+          a.click(); 
+      }
+    
+</script>
+     
+<body>
+<div class="flex-box-vertical ">
+  <div class = "width-half">
+        <h3>AGREEMENT</h3>
+        <h1>Terms and Conditions</h1> 
+        <p>The purpose of this form is to notify you that your personal information, in a form of video an audio recording
+         is being collected. The recordings are solely used for research purposes and are stored only locally.</p>
+        <br><br>
+        <h1>Acceptance of Terms</h1>
+        <p>In order to experience the installation, you agree that you have read the terms and conditions and give your 
+        consent to be video, and audio recorded.</p>
+  </div>
+
+
+   <div class="center-button">
+        <form name= "acceptanceform" method="POST" action="/agreement">
+          <input type="checkbox" id="TermsAndConditions" name="consent" value="1"> 
+          <label>I Agree to the Terms and Conditions 👍</label>
+          <br><br>
+          <br><br>
+          <input type="submit" class="submit-btn" onclick="validateForm(acceptanceform)" value="Submit">
+        </form>
+    </div>
+  </div>
+
+  <script >
+    function validateForm(form){
+         if (form.consent.checked == false){
+            console.log(form.consent.checked);
+            alert("Please agree to the Terms and Conditons.");  
+         } 
+    }
+  </script>
+
+  </body>
+</html>

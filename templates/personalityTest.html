@@ -1,0 +1,74 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='personalitytest.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
+
+</head>
+<script>
+    window.onload = function goBackToMainpage() {
+        setTimeout(reload, 220000);
+    }
+    function reload() {
+        var a = document.createElement('a');
+        a.href = "{{ url_for('index') }}";
+        a.click();
+    }
+
+</script>
+
+<body>
+
+    <div class="container text-center" id="quiz">
+        <ul id="quizQ" class="list-group">
+
+        </ul>
+    </div>
+    <br><br>
+    <div class="container text-center" id="submitted">
+
+        <div class="parent">
+            <div class="child inline-block-child" style="float: right;">
+                <button id="submitButton" class="child inline-block-child retake round-retake submitBtn" onclick="submitTotalScore()">Submit</button>
+            </div>
+
+            <div class="child inline-block-child" style="float: left;">
+                <button id="retakeButton" class="child inline-block-child retake round-retake" onclick="retake()">Retake</button>
+            </div>
+
+             <div class="child inline-block-child" style="float: right;">
+                <button id="nextButton" class="child inline-block-child next round" onclick="next()">></button>
+            </div>
+
+            <div class='child inline-block-child'>
+            <p id="page">1</p>
+            </div>
+
+            <div class='child inline-block-child'>
+                <p>/4</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+        <!-- 
+    <audio id="toVideo">
+        <source src="{{ url_for('static', filename = 'demo.mp3') }}" type="audio/mpeg">
+    </audio>
+
+ -->
+
+        <script type="text/javascript" src="{{ url_for('static', filename='personalityTest.js') }}"></script>
+
+</body>
+
+</html>

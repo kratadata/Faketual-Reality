@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script> 
+
+
+</head>
+<script>
+    window.onload = function goBackToMainpage() {
+        setTimeout(reload, 60000);
+    }
+    function reload() {
+        var a = document.createElement('a');
+        a.href = "{{ url_for('index') }}";
+        a.click();
+    }
+
+</script>
+
+<body>
+    <div class="flex-box-vertical">
+        <div class="width-half">
+            <h1>
+           This following test is based on Big Five personality traits taxonomy and identifies five factors that describe one's personality:
+        <br><br>
+        <ul>
+           <li>extraversion </li>
+           <li>agreeableness </li>
+           <li>openness to experience </li>
+           <li>conscientiousness</li>
+           <li>neuroticism </li>
+        </ul>
+        <br> <br>
+            Depending on the answers you give the algorithm find the opposite traits and chooses the sentences that you wouldn't have said otherwise
+            </h1>
+        </div>
+        <div class="center-button">
+            <form action="/personalityTest" method="post" id="next">
+                <input type="submit" class="submit-btn" value="Next">
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

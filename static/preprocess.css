@@ -1,0 +1,129 @@
+
+h1.loader {
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'Raleway', sans-serif;
+	font-size: 6.5em;
+	font-weight: bolder;
+	color: transparent;
+	letter-spacing: 0.01em;
+  }
+
+.loader span {
+	display: inline-block;
+	text-shadow:
+	  0 0 2px rgba(0, 0, 255, 0.3),
+	  0 15px 25px rgba(0, 0, 225, 0.3),
+	  0 -2px 3px rgba(0, 20, 225, 0.4),
+	  0 -5px 10px rgba(0, 30, 215, 0.5),
+	  0 5px 10px rgba(30, 30, 215, 0.3),
+	  0 3px 4px rgba(10, 10, 255, 0.2),
+	  0 0 20px rgba(20, 30, 205, 0.45);
+	
+	  animation: loading 0.85s ease-in-out infinite alternate;
+  }
+  
+  @keyframes loading {
+	  to {text-shadow:
+	  0 0 2px rgba(158, 158, 158, 0.3),
+	  0 0 3px  rgba(199, 199, 201, 0.3),
+	  0 0 0  rgba(247, 247, 248, 0.4),
+	  0 0 0 rgba(217, 218, 221, 0.5),
+	  0 0 0 rgba(0, 0, 0, 0),
+	  0 0 0 rgba(163, 163, 163, 0.2),
+	  0 0 0 rgba(255, 255, 255, 0);}
+  }
+  
+  .loader span:nth-child(2) {
+	animation-delay:0.15s;
+  }
+  
+  .loader span:nth-child(3) {
+	animation-delay:0.30s;
+  }
+  
+  .loader span:nth-child(4) {
+	animation-delay:0.45s;
+  }
+  
+  .loader span:nth-child(5) {
+	animation-delay:0.60s;
+  }
+  
+  .loader span:nth-child(6) {
+	animation-delay:0.75s;
+  }
+  
+  .loader span:nth-child(7) {
+	animation-delay:0.90s;
+  }
+
+  .loader span:nth-child(8) {
+	animation-delay:1.05s;
+  }
+
+  .loader span:nth-child(9) {
+	animation-delay:1.15s;
+  }
+
+  .loader span:nth-child(10) {
+	animation-delay:1.30s;
+  }
+
+  .loader span:nth-child(11) {
+	animation-delay:1.45s;
+  }
+
+  .loader span:nth-child(12) {
+	animation-delay:1.60s;
+  }
+
+  h1.success {
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'Raleway', sans-serif;
+	font-size: 6.5em;
+	font-weight: bolder;
+	color: rgb(0, 0, 255);
+	letter-spacing: 0.01em;
+	position: relative;
+	left: 12.25%;
+  }
+
+
+#finishText{
+	display: none;
+	position: relative;
+	top:90%;
+	left: 22%;
+
+}
+
+#finishIt{
+	  display: none;
+  }
+
+ #countdown {
+	  text-align: center;
+	  justify-content: center;
+	  position: relative;
+	  left:0;
+	  top:400px !important;
+	 
+}
+
+  .values {
+	font-size: 8rem;
+	font-family: 'Raleway', sans-serif;
+	color: white;
+  }
+
+.finish-button {
+	text-align: center; 
+	margin: 0;
+	position: absolute;
+	top: 38.5rem;
+	left: 47.5%;
+	transform: scale(1,1.1);
+}
+  

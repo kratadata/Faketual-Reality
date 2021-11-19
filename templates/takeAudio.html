@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='audio.css') }}">
+</head>
+
+<script>
+    var startTime;
+
+    window.onload = function goBackToMainpage() {
+        setTimeout(reload, 120000);
+    }
+  
+    function reload() {
+        var a = document.createElement('a');
+        a.href = "{{ url_for('index') }}";
+        a.click(); 
+    }
+
+</script> 
+
+
+<body>
+
+    <div class="flex-box-vertical ">
+        <div class="width-half">
+            <h1 style="text-align: center;">
+                Knock, knock.<br>
+                Who is there?<br>
+                Is it me with that strange stare?<br>
+                Is it an imposter or my own reflection?<br>
+                Reality that leads toward a perfection.<br>
+                The wish for a future to be synthetic, <br>
+                where everything looks perfectly aesthetic!<br>
+                Eternal peace declared,<br>
+                I better be prepared.<br>
+            </h1>
+
+            <div id="controls">
+                <div class="button-record" id="record">
+                    <div class="inner"></div>
+                  </div>
+            </div>
+
+            <div id="formats" style= "display: none;"></div>
+            <pre id="log"  style= "display: none;"></pre>
+
+           <meter id = "volumeMeter" min ="0" max = "0.25" value = "0"> </meter>
+           <h1 id="pressrecord" style="text-align: center;">Press the record button and read the text out loud</h1>
+        </div>
+                <div class="center-button">
+                    <form action="/preprocess" method="post" id="nextButton" style="display:none;">
+                        <input class="submit-btn"  style="margin-top: 50px;" type="submit" value="Next">
+                    </form>
+                </div>
+          
+
+           
+                
+          
+        </div>
+            <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+            <script src="{{ url_for('static', filename='WebAudioRecorder.js') }}"></script>
+            <script src="{{ url_for('static', filename='queue.js') }}"></script>
+            <script src="{{ url_for('static', filename='takeAudio.js') }}"></script>
+
+</body>
+<script>
+    $(".button-record").click(function() {
+    $(this).toggleClass("active");
+  });
+</script>
+</html>

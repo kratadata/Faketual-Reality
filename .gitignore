@@ -1,0 +1,5 @@
+synthesizer/saved_models/pretrained/pretrained.pt 
+driving_videos/*
+checkpoints/*
+Enhance/checkpoints/*
+/face-alignment

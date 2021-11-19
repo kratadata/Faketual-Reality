@@ -1,0 +1,373 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='takeVideo.css') }}">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.min.js"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+
+
+	<script type="text/javascript" src="{{ url_for('static', filename='canvasRecorder.js') }}"></script>
+
+</head>
+
+<script>
+	window.onload = function goBackToMainpage() {
+		setTimeout(reload, 60000);
+	}
+
+	function reload() {
+		var a = document.createElement('a');
+		a.href = "{{ url_for('index') }}";
+		a.click();
+	} 
+
+
+
+</script>
+
+<body>
+
+	<audio id="mouthClosed">
+		<source src="{{ url_for('static', filename = 'mouth.mp3') }}" type="audio/mpeg">
+	</audio>
+
+	<audio id="eyesClosed">
+		<source src="{{ url_for('static', filename = 'eyes.mp3') }}" type="audio/mpeg">
+	</audio>
+
+	<audio id="cameraClick">
+		<source src="{{ url_for('static', filename = 'cameraClick.mp3') }}" type="audio/mpeg">
+	</audio>
+
+	<audio id="lookInto">
+		<source src="{{ url_for('static', filename = 'lookIntoCamera.mp3') }}" type="audio/mpeg">
+	</audio>
+
+	<audio id="timer">
+		<source src="{{ url_for('static', filename = '321.mp3') }}" type="audio/mpeg">
+	</audio>
+
+	<div class="container">
+		<div class="loading">
+			<div class="spinner"></div>
+		</div>
+		<video class="input_video"></video>
+		<canvas class="output_canvas" id="capturethis" width="1920px" height="1080px"></canvas>
+		<canvas class="drawing_canvas" width="1920px" height="1080px"></canvas>
+		<canvas class="instruction_canvas" width="1920px" height="1080px"></canvas>
+		<div id="progress" style="display: none;"></div></progress>
+	</div>
+
+
+
+	<script type="module">
+
+		const videoElement = document.getElementsByClassName('input_video')[0];
+		const outlines = document.getElementsByClassName('drawing_canvas')[0];
+		const videoCanvas = document.getElementsByClassName('output_canvas')[0];
+		const intructions = document.getElementsByClassName('instruction_canvas')[0];
+
+		const canvasCtx = setupCanvas(videoCanvas);
+		const canvasCtxDrw = setupCanvas(outlines);
+		const canvasCtxInst = setupInstructionCanvas(intructions);
+
+		const path = new Path2D()
+		path.rect(250, 350, 200, 100)
+		path.rect(25, 72, 32, 32)
+		path.closePath()
+
+		const recorder = new CanvasRecorder(videoCanvas, 5000000);
+
+		let executeOnce = false;
+		let turnedLed = false;
+		let matched = false;
+		let opened = false;
+
+		var outlineImg = new Image();
+		outlineImg.src = '/static/outline.png';
+
+		var eyes_state = '';
+		var mouth_state = '';
+
+		var playingEyes = false;
+		var playingMouth = false;
+		var playingLook = false;
+
+		var visitorEyes = document.getElementById("eyesClosed");
+		var visitorMouth = document.getElementById("mouthClosed")
+
+		visitorEyes.loop = false;
+		visitorMouth.loop = false;
+
+		const spinner = document.querySelector('.loading');
+
+
+		spinner.ontransitionend = () => {
+			spinner.style.display = 'none';
+			turnLedOn();
+		};
+
+
+
+		function setupCanvas(canvas) {
+			var dpr = window.devicePixelRatio || 1;
+			var rect = canvas.getBoundingClientRect();
+			canvas.width = rect.width * dpr;
+			canvas.height = rect.height * dpr;
+			var ctx = canvas.getContext('2d');
+			ctx.translate(canvas.width, 0);
+			ctx.scale(-dpr, dpr);
+			return ctx;
+		}
+
+		function setupInstructionCanvas(canvas) {
+			var dpr = window.devicePixelRatio || 1;
+			var rect = canvas.getBoundingClientRect();
+			canvas.width = rect.width * dpr;
+			canvas.height = rect.height * dpr;
+			var ctx = canvas.getContext('2d');
+			return ctx;
+		}
+
+
+		function onResults(results) {
+			document.body.classList.add('loaded');
+			canvasCtx.save();
+			canvasCtx.clearRect(0, 0, videoCanvas.width, videoCanvas.height);
+			canvasCtx.drawImage(results.image, 0, 0, videoCanvas.width, videoCanvas.height);
+
+			canvasCtxDrw.clearRect(0, 0, videoCanvas.width, videoCanvas.height);
+			canvasCtxInst.clearRect(0, 0, videoCanvas.width, videoCanvas.height);
+			canvasCtxInst.font = '4rem Raleway ';
+			canvasCtxInst.fillStyle = "white";
+
+			if (results.multiFaceLandmarks) {
+
+				const landmarks = results.multiFaceLandmarks[0];
+
+				//drawConnectors(canvasCtxDrw, landmarks, FACEMESH_RIGHT_EYE, { color: '#FF3030' });
+				//drawConnectors(canvasCtxDrw, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
+				//drawConnectors(canvasCtxDrw, landmarks, FACEMESH_LEFT_EYE, { color: '#30FF30' });
+				//drawConnectors(canvasCtxDrw, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
+				//drawConnectors(canvasCtxDrw, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
+
+
+				if (landmarks != undefined) {
+
+					const headHeight = 10 * Math.abs(landmarks[152].y - landmarks[151].y);
+					const eye_left_height = 100 * (landmarks[145].y - landmarks[159].y) / headHeight;
+					const eye_right_height = 100 * (landmarks[374].y - landmarks[386].y) / headHeight;
+					const mouth_height = 1000 * (landmarks[14].y - landmarks[13].y) / headHeight;
+
+					const face1X = 1000 * landmarks[152].x / headHeight;
+					const face2X = 1000 * landmarks[123].x / headHeight;
+					const face1Y = 1000 * landmarks[152].y / headHeight;
+					const face2Y = 1000 * landmarks[123].y / headHeight;
+
+					let thresholdOpen = 0.35;
+					let thresholdMouthOpen = 1.3;
+					let thresholdMouthMax = 5;
+
+					console.log('FaceLeftX ' + face1X + '\tFaceRightX ' + face2X);
+					console.log('FaceLeftY ' + face1Y + '\tFaceRightY ' + face2Y);
+					//console.log('EyeLeft ' + eye_left_height + '\tEyeRight ' + eye_right_height + '\tMouth ' + mouth_height);
+/* 
+					if (eye_left_height < thresholdOpen && eye_right_height < thresholdOpen) {
+						eyes_state = "closed";
+					} else {
+						eyes_state = "open";
+					}
+
+					if (mouth_height < thresholdMouthOpen) {
+						mouth_state = "closed";
+						if (!playingEyes && !playingLook && !playingLook) {
+							playingMouth = true;
+							visitorMouth.play();
+							visitorMouth.addEventListener("ended", function () {
+								playingMouth = false;
+
+							});
+						}
+					} else {
+						mouth_state = "open";
+					} */
+
+					if (landmarks.length != 0) {
+						if (face1X > 180 && face1X < 195 && face2X > 155 && face2X < 170) {
+							if (!matched) {
+								outlineImg.src = '/static/outline_green.png';
+								canvasCtxInst.fillText("Great!", 880, 1000);
+								
+							}
+							setTimeout(function () {
+								matched = true;
+							}, 3000);
+						} else {
+							if (!matched) {
+								outlineImg.src = '/static/outline.png';
+								canvasCtxInst.fillText("Come closer and match the outline", 460, 1000);
+							}
+
+						}
+
+
+						if (matched) {
+							drawConnectors(canvasCtxDrw, landmarks, FACEMESH_LIPS, { color: '#E0E0E0' });
+							outlineImg.src = '/static/outline_green.png';
+
+							if (mouth_height > thresholdMouthOpen && mouth_height < thresholdMouthMax && !opened) {
+								canvasCtxInst.fillText("Keep your mouth open like this", 460, 1000);
+
+								setTimeout(function () {
+										opened = true;
+									}, 2000);
+
+							} else if (mouth_height > thresholdMouthMax && !opened) {
+								canvasCtxInst.fillText("That's too much", 750, 1000);
+							} else if (!opened){
+								canvasCtxInst.fillText("Open your mouth a little bit", 560, 1000);
+							}
+
+					
+						}
+
+						if(opened){
+							canvasCtxInst.fillText("Look into the camera", 600, 1000);
+							drawLineWithArrowhead(canvasCtxInst,50);
+							startRecordProcess();
+						}
+					
+
+						//console.log ("Eye right" + "" + eye_right_height);
+						//console.log ("Eye left" + "" + eye_left_height);
+						//canvasCtx.fillText("Eyes are" + " " + eyes_state, 100, 100);
+						//canvasCtx.fillText("Mouth is" + " " + mouth_state, 100, 200);
+
+						canvasCtxDrw.drawImage(outlineImg, 580, 120, videoCanvas.width / 2.5, videoCanvas.width / 2.5)
+					}
+				}
+
+			}
+
+			canvasCtx.restore();
+		}
+
+
+
+		function drawLineWithArrowhead(ctx, headLength) {
+			var p0={x:940,y:110};
+			var p1={x:940,y:10};		
+			// constants (could be declared as globals outside this function)
+			var PI = Math.PI;
+			var degreesInRadians225 = 225 * PI / 180;
+			var degreesInRadians135 = 135 * PI / 180;
+
+			// calc the angle of the line
+			var dx = p1.x - p0.x;
+			var dy = p1.y - p0.y;
+			var angle = Math.atan2(dy, dx);
+
+			// calc arrowhead points
+			var x225 = p1.x + headLength * Math.cos(angle + degreesInRadians225);
+			var y225 = p1.y + headLength * Math.sin(angle + degreesInRadians225);
+			var x135 = p1.x + headLength * Math.cos(angle + degreesInRadians135);
+			var y135 = p1.y + headLength * Math.sin(angle + degreesInRadians135);
+			ctx.lineWidth = 5;
+			// draw line plus arrowhead
+			ctx.beginPath();
+			// draw the line from p0 to p1
+			ctx.moveTo(p0.x, p0.y);
+			ctx.lineTo(p1.x, p1.y);
+			// draw partial arrowhead at 225 degrees
+			ctx.moveTo(p1.x, p1.y);
+			ctx.lineTo(x225, y225);
+			// draw partial arrowhead at 135 degrees
+			ctx.moveTo(p1.x, p1.y);
+			ctx.lineTo(x135, y135);
+			// stroke the line and arrowhead
+			ctx.stroke();
+		}
+
+
+
+		function startRecordProcess() {
+			if (!executeOnce) {
+				var timeleft = 0;
+
+				var showProgress = document.getElementById("progress");
+				showProgress.style.display = "inline-block";
+				recordVideo();
+			}
+			executeOnce = true;
+		}
+
+		function recordVideo() {
+			document.getElementById("timer").play();
+			recorder.start("video/webm\;codecs=h264");
+
+			setTimeout(function () {
+				stopRecording();
+			}, 6000);
+		}
+
+		const faceMesh = new FaceMesh({
+			locateFile: (file) => {
+				return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+			}
+		});
+
+		faceMesh.setOptions({
+			maxNumFaces: 1,
+			minDetectionConfidence: 0.5,
+			minTrackingConfidence: 0.5
+		});
+
+		faceMesh.onResults(onResults);
+
+		const camera = new Camera(videoElement, {
+			onFrame: async () => {
+				await faceMesh.send({ image: videoElement });
+			},
+			width: 1920,
+			height: 1080
+		});
+
+		camera.start();
+
+		function stopRecording() {
+			document.getElementById("cameraClick").play();
+			recorder.stop();
+			recorder.save('visitor.webm');
+		}
+
+		function turnLedOn() {
+			if (!turnedLed)
+				fetch('/turnLEDon', {
+					method: "POST",
+				}).then(function (response) {
+					console.log("led on");
+				}).catch(function (error) {
+					console.log("Fetch error: " + error);
+				});
+			turnedLed = true;
+		}
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!--<meta http-equiv="refresh" content="10">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='preprocess.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='easytimer.min.js')}}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+</head>
+
+<script>
+    window.onload = function runPreprocessing() {
+        setTimeout(function () {
+            $.post('/preprocess_background_task', {
+            }, function (err, req, resp) {
+                console.log("success");
+            });
+        }, 3000);
+
+
+        setTimeout(function () {
+            $.when($(".loader").fadeOut("slow")).then(function () {
+                $(".success").css("display", "inline-block").fadeIn("slow");
+                $("#finishIt").css("display", "inline-block").fadeIn("slow");
+                $("#finishText").css("display", "inline-block").fadeIn("slow");
+            });
+        }, 7000);
+
+        setTimeout(reload, 240000);
+      }
+  
+      function reload() {
+          var a = document.createElement('a');
+          a.href = "{{ url_for('index') }}";
+          a.click(); 
+     }
+
+
+</script>
+
+<body>
+
+    <audio id="pleaseFollowTheLights">
+        <source src="{{ url_for('static', filename = 'lights.mp3') }}" type="audio/mpeg">
+    </audio>
+
+    <div class="flex-box-vertical hide" id ="appendTimer">
+        <div class="width-half">
+            <h1 class="loader">
+                <span>C</span>
+                <span>H</span>
+                <span>E</span>
+                <span>C</span>
+                <span>K</span>
+                <span>I</span>
+                <span>N</span>
+                <span>G</span>
+                <span></span>
+                <br>
+                <span>D</span>
+                <span>A</span>
+                <span>T</span>
+                <span>A</span>
+            </h1>
+            <h1 class="success" style="display: none;">
+                <span>S</span>
+                <span>U</span>
+                <span>C</span>
+                <span>C</span>
+                <span>E</span>
+                <span>S</span>
+                <span>S</span>
+            </h1>
+            <h1 id="finishText">Press the button to continue the experience.</h1>
+    
+        </div>
+      
+       
+        <div class="finish-button" id="finishIt">
+            <form action="/reload/240" method="post" id="emit">
+                <input class="submit-btn" type="submit" value="FINISH" onclick="sendMessage()">
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    var played = false;
+
+    function sendMessage() {
+        $("#finishText").html('Exit the booth and continue to the installation');
+        pleaseWait();
+        console.log("sending message");
+        $("#finishIt").fadeOut(10);
+        $("#success").fadeOut(10);
+        document.body.style.backgroundColor = 'rgba(0,0,255)';
+
+      /*   if (!played) {
+            document.getElementById("pleaseFollowTheLights").play();
+            played = true;
+        } */
+        $.get ('/touchTD?started=1');
+       
+    }
+
+    function pleaseWait() {
+       
+        var count = document.createElement('div');
+        count.setAttribute("id", "countdown");
+        var value = document.createElement('div');
+        value.setAttribute("class", "values");
+        count.appendChild(value);
+
+        document.getElementById('appendTimer').appendChild(count);
+        var timerInstance = new easytimer.Timer();
+        var timer = new easytimer.Timer();
+        timer.start({
+            countdown: true, startValues: {
+                minutes: 4,
+                seconds: 00
+            }
+        });
+
+        $('#countdown .values').html(timer.getTimeValues().toString());
+
+        
+
+        timer.addEventListener('secondsUpdated', function (e) {
+            $('#countdown .values').html(timer.getTimeValues().toString());
+                if (timer.getTimeValues().seconds == 20 ){
+                $("#finishText").html('To experience come back after the timer is up');
+                 }
+        });
+
+        timer.addEventListener('targetAchieved', function (e) {
+            $('#countdown .values').html('NEXT PLEASE!');
+        });
+    }
+
+
+
+</script>
+
+
+</html>

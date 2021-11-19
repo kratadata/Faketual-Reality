@@ -1,0 +1,88 @@
+body {
+    color: black;
+    background-color: black;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  
+  h2, h3 { 
+    font: 4rem 'Raleway', sans-serif;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+  }
+  
+  h1 {
+    font: 2rem 'Raleway', sans-serif;
+    color: white;
+  }
+  
+  p,label {
+    color: white;
+    font: 1rem 'Raleway', sans-serif;
+  }
+  
+  
+  form > input[type=submit]{ 
+    justify-items: center;
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    background-color: white;
+    border: black;
+    font-weight: bold;
+    padding: 2.2rem 1.25rem;
+    border-radius: 50%
+  }
+  
+  
+  
+  form > input[type=submit]:active{
+    color: black;
+    background-color: blue;
+    border: black;
+  
+  }
+ 
+  form > input[type=checkbox] { 
+    transform: scale(1.5);
+  }
+
+  
+  /* Specific divs */
+  
+  .flex-box-vertical
+   {
+     position: relative;
+     height: 100%;
+   }
+  
+  .width-half
+  {
+    position: absolute;
+    text-align: justify;
+    text-justify: inter-word;
+    width: 50%;
+    height: 50%;
+    top: 2rem; 
+    left: 27.25%;
+    bottom: 0; 
+    right: 0;
+   
+  }
+  
+  .center-button {
+    text-align: center; 
+    margin: 0;
+    position: absolute;
+    top: 45rem;
+    left: 42.25%;
+  }
+  
+  
+  /* Specific divs */
+  
+  #render {
+    display:none;
+  }
+  
+  

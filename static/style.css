@@ -1,0 +1,133 @@
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+body { 
+	background-color: #fff;
+    color: black;
+    text-align: center;
+
+ }
+
+.container {
+  position: absolute;
+  background-color: #596e73;
+  height: 720px;
+  width: 1280px;
+}
+
+.input_video {
+  position:relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.output_canvas {
+  position:absolute;
+  height: 720px;
+  width: 1280px;
+  left: 0;
+  top: 0;
+}
+
+.messages-panel {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  z-index: 100;
+}
+.messages-panel p {
+	font-size:100px;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  backface-visibility: hidden;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 1s;
+
+}
+
+.spinner {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    animation: spin 1s linear infinite;
+    border: 32px solid #bebebe;
+    border-top: 32px solid #3498db;
+    border-radius: 50%;
+     z-index:12;
+ }
+
+ .message {
+    font-size: 100px;
+  }
+
+
+
+.loaded .loading {
+  opacity: 0;
+}
+
+
+h1 {
+ font-family: 'Raleway', sans-serif;
+ margin-top:0; 
+}
+
+h2, h3 { 
+  font-family: 'Raleway', sans-serif;
+  margin-top:0; 
+  font-size: 18px;
+}
+form { 
+  margin-top: 15px; 
+}
+form > input { 
+  margin-right: 15px; 
+  
+}
+
+#render {
+  display:none;
+}
+
+form > input[type=button] { 
+font-family: 'Raleway', sans-serif;
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+
+}
+
+.pulsate {
+    -webkit-animation: pulsate 3s ease-out;
+    -webkit-animation-iteration-count: infinite; 
+    opacity: 0.5;
+}
+
+@-webkit-keyframes pulsate {
+    0% { 
+        opacity: 0.5;
+    }
+    50% { 
+        opacity: 1.0;
+    }
+    100% { 
+        opacity: 0.5;
+    }
+}

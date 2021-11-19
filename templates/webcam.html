@@ -1,0 +1,100 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+   <title>Imposter Syndrome</title>
+   <!--<meta http-equiv="refresh" content="10">-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+ <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Miriam+Libre&family=Raleway&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    
+    <!-- First, include the Webcam.js JavaScript Library -->
+    <script type="text/javascript" src="{{ url_for('static', filename='webcamjs.js') }}"></script>
+    
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+        Webcam.set({
+            width:860,
+            height:640,
+            dest_width: 1920,
+            dest_height:1440,
+            enable_flash: true, 
+            image_format: 'png',
+            flip_horiz: true
+        });
+        Webcam.attach( '#my_camera' );
+    </script>
+    
+    <!-- A button for taking snaps -->
+    <form>
+       <input type="button" id="snapshot" value="Take Snapshot" onclick = "setTimeout(function() { take_snapshot(); }, 4000)">
+      
+    </form>
+     <form action="/preprocess" method = "post" id ="render">
+        <input type="button" value="Render">
+    </form>
+    
+    <!-- Code to handle taking the snapshot and displaying it locally -->
+   <script>
+        $("#snapshot").click(function(){
+        		var i = 4;  //set the countdown
+				(function timer(){
+   				 if (--i < 0) return;
+    			setTimeout(function(){
+        		document.getElementsByTagName('h1')[0].innerHTML = i + ' secs';
+        		timer();
+   			 }, 1000); 
+    			setTimeout(function(){
+        		document.getElementsByTagName('h1')[0].innerHTML = 'Picture Taken!';
+        		document.body.style.backgroundColor = '#eaf74e';
+   			 }, 5000); 
+			
+			})();
+
+       			setTimeout(function() {
+        		$("#render").toggle();
+        		}, 6000);  
+        }); 
+
+        $("#render").click(function(){
+            $.post('/preprocess');
+            $("#render").hide();
+            document.getElementsByTagName('h1')[0].innerHTML = 'Rendering... PLease walk around to the next screen';
+            setTimeout(function(){
+        		window.location.reload();
+  			 }, 20000);  
+         }); 
+
+        take_snapshot = function () {
+            Webcam.snap(function (data_uri) {
+                 		downloadImage(myDate(), data_uri);
+                    })
+        }
+
+         downloadImage = function (name, datauri, path) {
+            var a = document.createElement('a');
+                a.setAttribute('download', name + '.png');
+                a.setAttribute('href', datauri);
+                a.click(); 
+            
+
+        }       
+        myDate = function (){
+                const date = new Date();
+                const year = date.getFullYear();
+                const month = `${date.getMonth() + 1}`.padStart(2, '0');
+                const day =`${date.getDate()}`.padStart(2, '0');
+                const hour = date.getHours();
+                const minutes= date.getMinutes();
+                return `${year}${month}${day}${hour}${minutes}`
+        }
+        
+
+    </script>
+   
+</body>
+</html>

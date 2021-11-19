@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Faketual Reality</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='welcome.css') }}">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script> 
+
+    </head>
+    <script>
+      window.onload = function reloadTD() {
+          $.get('/touchTD?started=0');
+      
+      }
+      </script>
+      
+<body>
+
+
+<div class = "image-wrap">
+<div class="flex-box-vertical" id="welcome-white">
+  <div class = "width-half" >
+        <h1 style="margin-top:20%">Touch the button to start the experience.</h1>
+  </div>
+  <div class="touch-button" id="agreement">
+    <form action="/agreement" method="post">
+        <input class="pulse-button" type="submit" value="START">
+    </form>
+</div>
+</div>
+</div>
+  </body>
+</html>

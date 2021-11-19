@@ -1,0 +1,152 @@
+* {
+	font-family: 'Raleway', sans-serif;
+	background-color: black;
+}
+
+p {
+	font: 2.2rem 'Raleway', sans-serif !important;
+	font-weight: 400 !important;
+}
+
+.container{
+	position: relative;
+	top: 10%;
+}
+
+.prompt {
+	display: inline-block;
+	font-size: 1.6em;
+}
+
+
+.list-group-item {
+	border: none;
+	padding: 80px;
+	background-color: black ;
+}
+
+.inline-block-child {
+	display: inline-block;
+	
+}
+.btn {
+	margin: 0 20px 0 20px;
+	font-size: 0.75em;
+	font-weight: 500;
+	background-color: black;
+	color:white;
+
+}
+.btn.active,
+.btn:active,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn:hover{
+	background-color:  #afafaf;
+}
+
+.btn-strongly-agree {
+	color: #38a84e;
+	
+	
+}
+
+.btn-strongly-agree.active,
+.btn-strongly-agree:active,
+.btn-strongly-agree:focus,
+.btn-strongly-agree:active:focus,
+.btn-strongly-agree.active:focus,
+.btn-strongly-agree:hover
+ {
+	background-color:  #38a84e;
+	color:white;
+}
+
+.btn-agree {
+	color: #75bd83;
+}
+
+.btn-agree.active,
+.btn-agree:active,
+.btn-agree:focus,
+.btn-agree:active:focus,
+.btn-agree.active:focus,
+.btn-agree:hover {
+	background-color:#75bd83;
+	color:white;
+}
+
+.btn-disagree {
+	color: #e28181;
+}
+
+.btn-disagree.active,
+.btn-disagree:active,
+.btn-disagree:focus,
+.btn-disagree:active:focus,
+.btn-disagree.active:focus,
+.btn-disagree:hover {
+	background-color: rgba(255, 60, 0, 1);
+	color:white;
+}
+
+.btn-strongly-disagree {
+	color: #ff0000;
+}
+
+.btn-strongly-disagree.active,
+.btn-strongly-disagree:active,
+.btn-strongly-disagree:focus,
+.btn-strongly-disagree:active:focus,
+.btn-strongly-disagree.active:focus,
+.btn-strongly-disagree:hover {
+	background-color: #ff0000;
+	color:white;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: flex;
+}
+
+.next{
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	padding:8px 16px;	
+	position: relative;
+	left:40%
+  }
+.next:active, .retake:active {
+	background-color: blue;
+  }
+
+.retake{
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	position: relative;
+	padding: 3rem 2rem;
+
+  }
+
+.round {
+	border-radius: 50%;
+	border:none;
+	
+}
+.round-retake {
+	border-radius: 50%;
+	border:none;
+	
+}
+
+h1.result{
+	font-size: 3rem !important;
+	text-align: center;
+}
+

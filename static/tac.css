@@ -1,0 +1,168 @@
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+input,
+select,
+fieldset {
+  border: solid 1px #999999;
+}
+
+textarea {
+  color: #000000;
+}
+
+button {
+  background-color: #007236;
+  border: solid 1px #999999;
+  padding: 3px !important;
+  color: #FFFFFF;
+}
+
+label {
+  color: #000000;
+}
+.agreement[type=checkbox] { 
+  font-family: 'Raleway', sans-serif;
+}
+
+.width-full
+{
+	width: 100%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 1/5 width of it's container */
+.width-onefifth
+{
+	width: 20%;
+    display: inline-block;
+}
+/* tells a component to take up the 2/5 width of it's container */
+.width-twofifths
+{
+	width: 40%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 3/5 width of it's container */
+.width-threefifths
+{
+	width: 60%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 4/5 width of it's container */
+.width-fourfifths
+{
+	width: 80%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 1/4 width of it's container */
+.width-onequarter
+{
+	width: 25%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 1/6 width of it's container */
+.width-onesixth
+{
+	width: 17%;
+    display: inline-block;
+}
+
+/* tells a component to take up the one third width of it's container */
+.width-onethird
+{
+	width: 33%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 1/2 width of it's container */
+.width-half
+{
+	width: 50%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 2/3 width of it's container */
+.width-twothirds
+{
+	width: 67%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 75% width of it's container */
+.width-threequarters
+{
+	width: 75%;
+    display: inline-block;
+}
+
+/* tells a component to take up the 5/6 width of it's container */
+.width-fivesixths
+{
+	width: 83%;
+    display: inline-block;
+}
+
+/* tells a component to have the default amount of padding and spacing on all sides of it. */
+.default-pad-margin
+{
+	padding: 5px;
+	margin: 5px;
+}
+
+/**
+ * Add this class to a parent component to make it a flexbox that aligns things horizontally
+ */
+.flex-box-horizontal
+{
+	display: flex;
+	flex-direction: row;
+}
+
+/**
+ * Add this class to a parent component to make it a flexbox that aligns things vertically
+ */
+.flex-box-vertical
+{
+	display: flex;
+	flex-direction: column;
+ 
+}
+
+/**
+ * This class requires one of the flex-container classes as well.  It will align the content to the beginning of the container.
+ */ 
+.flex-align-start
+{
+	justify-content: flex-start;
+}
+
+/**
+ * This class requires one of the flex-container classes as well.  It will align the content to the center of the container.
+ */ 
+.flex-align-center
+{
+	justify-content:  center;
+}
+
+/**
+ * This class requires one of the flex-container classes as well.  It will align the content to the center of the container.
+ */ 
+.flex-align-end
+{
+	justify-content:  flex-end;
+}

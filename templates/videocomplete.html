@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!--<meta http-equiv="refresh" content="10">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='easytimer.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='takeVideo.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+
+</head>
+
+<script>
+    let turnedLed = true;
+    window.onload = function video2images() {
+        turnLedOff();
+        pleaseWait();
+        $.post("/video2images_background_task", {
+        }, function (err, req, resp) {
+            console.log("success");
+        });
+       setTimeout(reload, 60000);
+    }
+    function reload() {
+        var a = document.createElement('a');
+        a.href = "{{ url_for('index') }}";
+        a.click();
+
+    }
+    function turnLedOff() {
+            if (turnedLed)
+                fetch('/turnLEDoff', {
+                    method: "POST",
+                }).then(function (response) {
+                    console.log("led off");
+                }).catch(function (error) {
+                    console.log("Fetch error: " + error);
+                });
+            turnedLed = false;
+        }
+</script> 
+
+<body>
+    <!-- <audio id="goToVideo" autoplay>
+        <source src="{{ url_for('static', filename = 'demo.mp3') }}" type="audio/mpeg">
+    </audio> -->
+
+    <div class="flex-box-vertical">
+        <div class="width-half">
+            <h1 style = "text-align: center;">Image is being processed.<br><br> Press the button after the timer goes off. </h1>
+        <div id="gif-container">  
+            <img src="/static/face.gif " loop="infinite">
+        </div>     
+        </div>
+        <div class="center-button" >
+            <div id ="appendTimer"></div>
+           <form action="/takeAudio" method="post" id="next" style ="display: none;">
+                <input type="submit" class="submit-btn" value="Next">
+            </form> 
+        </div>
+    </div>
+
+    <script>
+         
+    function pleaseWait() {
+        var count = document.createElement('div');
+        count.setAttribute("id", "countdown");
+		var value = document.createElement('div');
+        value.setAttribute("class", "values");
+        count.appendChild(value);
+		
+        document.getElementById('appendTimer').appendChild(count);
+        var timerInstance = new easytimer.Timer();
+        var timer = new easytimer.Timer();
+        timer.start({ countdown: true, startValues: { 
+        minutes: 0,
+        seconds: 10 } });
+
+        $('#countdown .values').html(timer.getTimeValues().toString());
+
+        timer.addEventListener('secondsUpdated', function (e) {
+        $('#countdown .values').html(timer.getTimeValues().toString());
+        });
+
+        timer.addEventListener('targetAchieved', function (e) {
+        $('#countdown').hide();
+        $('#next').show();
+        });
+     }
+
+    </script>
+</body>
+
+</html>
