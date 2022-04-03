@@ -31,7 +31,6 @@ sounddevice
 SoundFile
 Unidecode
 inflect
-PyQt5
 multiprocess
 numba
 webrtcvad; platform_system != "Windows"
