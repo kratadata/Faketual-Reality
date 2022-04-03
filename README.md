@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 Install also pytorch and torchvision with 
 ```
-conda install pytorch==1.0.0 torchvision==0.2.1 -c pytorch
+conda install pytorch==1.0.0 mkl==2018 torchvision==0.2.1 -c pytorch
 ```
 
 Clone the library for face alignment:
