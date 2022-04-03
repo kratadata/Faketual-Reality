@@ -10,6 +10,13 @@ Cuda Drivers 410.48
 ### Installation
 Use Conda environment:
 
+Install packages by running
+```
+conda install pyqt
+sudo apt install ffmpeg
+sudo apt-get install libportaudio2
+```
+
 Install the dependencies by running
 ```
 pip install -r requirements.txt
