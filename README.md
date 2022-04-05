@@ -71,8 +71,7 @@ conda install keras
 ```
 If any problem about tensorflow is outputted, just install these ones too:
 ```
-conda install tensorflow=1.13.1
-conda install tensorflow-base=1.13.1
+pip install dask==1.2.0
 ```
 <br>
 Moreover, before running the script, you need to download this (https://drive.google.com/file/d/1DSxNFCc9cyeb1tZHuvQTSza81_PCPh46/view?usp=sharing) folder, unzip it and put it inside the folder "Enhance" so you will have the path "Enhance/checkpoints"
