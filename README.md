@@ -2,7 +2,7 @@
 Creators : @alessiapacca 
 
 ### Prequisities
-Ubutnu 18.04 Kernel 5.4.0<br>
+Ubuntu 18.04 Kernel 5.4.0<br>
 Python 3.7 <br>
 Cuda 10.2 <br>
 Cuda Drivers 440.33.01
